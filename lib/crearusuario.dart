@@ -1,31 +1,38 @@
+import 'package:flutter/painting.dart';
 import 'package:flutter/services.dart';
-import 'package:parcial3_proyectos/conexion/get.dart';
-import 'crearusuario.dart';
-import 'flutter_flow/flutter_flow/flutter_flow_widgets.dart';
-import 'flutter_flow/flutter_flow/flutter_flow_theme.dart';
-import 'package:parcial3_proyectos/hompage.dart';
-import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'apiservice/apiservice.dart';
+import 'flutter_flow/flutter_flow/flutter_flow_theme.dart';
+import 'flutter_flow/flutter_flow/flutter_flow_widgets.dart';
+import 'package:flutter/material.dart';
 
-class InicioPageWidget extends StatefulWidget {
-  const InicioPageWidget({Key key}) : super(key: key);
+class CrearUsuarioPagina extends StatefulWidget {
+  const CrearUsuarioPagina({Key key}) : super(key: key);
 
   @override
-  _HomePageWidgetState createState() => _HomePageWidgetState();
+  _CrearUsuarioPaginaState createState() => _CrearUsuarioPaginaState();
 }
 
-class _HomePageWidgetState extends State<InicioPageWidget> {
-  TextEditingController textController1;
-  TextEditingController textController2;
+class _CrearUsuarioPaginaState extends State<CrearUsuarioPagina> {
+  TextEditingController textControllerNombre;
+  TextEditingController textControllerCarnet;
+  TextEditingController textControllerContra;
+  TextEditingController textControllerEdad;
   bool passwordVisibility;
   final formKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
+  _dismissDialog() {
+    Navigator.pop(context);
+  }
+
   @override
   void initState() {
     super.initState();
-    textController1 = TextEditingController();
-    textController2 = TextEditingController();
+    textControllerNombre = TextEditingController();
+    textControllerCarnet = TextEditingController();
+    textControllerContra = TextEditingController();
+    textControllerEdad = TextEditingController();
     passwordVisibility = false;
   }
 
@@ -37,7 +44,7 @@ class _HomePageWidgetState extends State<InicioPageWidget> {
       backgroundColor: const Color(0xFFF5F5F5),
       body: AnnotatedRegion<SystemUiOverlayStyle>(
         value: const SystemUiOverlayStyle(
-          statusBarColor: Color(0xFFFF3E3F),
+          statusBarColor: Color(0xFF2B1C5F),
         ),
         child: Container(
           width: double.infinity,
@@ -82,14 +89,14 @@ class _HomePageWidgetState extends State<InicioPageWidget> {
               ),
               Container(
                 width: double.infinity,
-                height: MediaQuery.of(context).size.height * 0.16,
+                height: MediaQuery.of(context).size.height * 0.1,
                 decoration: const BoxDecoration(
                   color: Color(0x00EEEEEE),
                   shape: BoxShape.rectangle,
                 ),
               ),
               Text(
-                'Login',
+                'Crear Usuario',
                 textAlign: TextAlign.center,
                 style: FlutterFlowTheme.title1.override(
                     fontWeight: FontWeight.bold,
@@ -111,11 +118,11 @@ class _HomePageWidgetState extends State<InicioPageWidget> {
                       borderRadius: BorderRadius.circular(20),
                       child: TextFormField(
                         autofocus: false,
-                        controller: textController1,
+                        controller: textControllerNombre,
                         obscureText: false,
                         decoration: InputDecoration(
                           contentPadding: const EdgeInsets.only(top: 15),
-                          hintText: 'Username',
+                          hintText: 'Nombre',
                           hintStyle: FlutterFlowTheme.bodyText1.override(
                             fontFamily: 'Poppins',
                             color: const Color(0xFF757575),
@@ -155,7 +162,63 @@ class _HomePageWidgetState extends State<InicioPageWidget> {
               Align(
                 alignment: const AlignmentDirectional(0, 0),
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 10),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
+                  child: Container(
+                    width: MediaQuery.of(context).size.width * 0.75,
+                    height: MediaQuery.of(context).size.height * 0.065,
+                    decoration: const BoxDecoration(color: Colors.transparent),
+                    alignment: const AlignmentDirectional(0, 0),
+                    child: Material(
+                      elevation: 3,
+                      borderRadius: BorderRadius.circular(20),
+                      child: TextFormField(
+                        keyboardType: TextInputType.number,
+                        autofocus: false,
+                        controller: textControllerCarnet,
+                        obscureText: false,
+                        decoration: InputDecoration(
+                          contentPadding: const EdgeInsets.only(top: 15),
+                          hintText: 'Carnet',
+                          hintStyle: FlutterFlowTheme.bodyText1.override(
+                            fontFamily: 'Poppins',
+                            color: const Color(0xFF757575),
+                            fontSize: 19,
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                              color: Color(0x00000000),
+                              width: 2,
+                            ),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                              color: Color(0x00000000),
+                              width: 2,
+                            ),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          filled: true,
+                          fillColor: Colors.black,
+                          prefixIcon: const Icon(
+                            Icons.air,
+                            color: Colors.white,
+                          ),
+                        ),
+                        style: FlutterFlowTheme.bodyText1.override(
+                          fontFamily: 'Poppins',
+                          fontSize: 19,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Align(
+                alignment: const AlignmentDirectional(0, 0),
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 0),
                   child: Container(
                     width: MediaQuery.of(context).size.width * 0.75,
                     height: MediaQuery.of(context).size.height * 0.065,
@@ -169,11 +232,11 @@ class _HomePageWidgetState extends State<InicioPageWidget> {
                       borderRadius: BorderRadius.circular(20),
                       child: TextFormField(
                         autofocus: false,
-                        controller: textController2,
+                        controller: textControllerContra,
                         obscureText: !passwordVisibility,
                         decoration: InputDecoration(
                           contentPadding: const EdgeInsets.only(top: 15),
-                          hintText: 'Password',
+                          hintText: 'Contraseña',
                           hintStyle: FlutterFlowTheme.bodyText1.override(
                             fontFamily: 'Poppins',
                             fontSize: 19,
@@ -225,6 +288,62 @@ class _HomePageWidgetState extends State<InicioPageWidget> {
               Align(
                 alignment: const AlignmentDirectional(0, 0),
                 child: Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 10),
+                  child: Container(
+                    width: MediaQuery.of(context).size.width * 0.35,
+                    height: MediaQuery.of(context).size.height * 0.065,
+                    decoration: const BoxDecoration(color: Colors.transparent),
+                    alignment: const AlignmentDirectional(0, 0),
+                    child: Material(
+                      elevation: 3,
+                      borderRadius: BorderRadius.circular(20),
+                      child: TextFormField(
+                        keyboardType: TextInputType.number,
+                        autofocus: false,
+                        controller: textControllerEdad,
+                        obscureText: false,
+                        decoration: InputDecoration(
+                          contentPadding: const EdgeInsets.only(top: 15),
+                          hintText: 'Edad',
+                          hintStyle: FlutterFlowTheme.bodyText1.override(
+                            fontFamily: 'Poppins',
+                            color: const Color(0xFF757575),
+                            fontSize: 19,
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                              color: Color(0x00000000),
+                              width: 2,
+                            ),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                              color: Color(0x00000000),
+                              width: 2,
+                            ),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          filled: true,
+                          fillColor: Colors.black,
+                          prefixIcon: const Icon(
+                            Icons.tag,
+                            color: Colors.white,
+                          ),
+                        ),
+                        style: FlutterFlowTheme.bodyText1.override(
+                          fontFamily: 'Poppins',
+                          fontSize: 19,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Align(
+                alignment: const AlignmentDirectional(0, 0),
+                child: Padding(
                   padding: const EdgeInsetsDirectional.fromSTEB(0, 40, 0, 0),
                   child: Container(
                     width: MediaQuery.of(context).size.width * 0.5,
@@ -237,22 +356,24 @@ class _HomePageWidgetState extends State<InicioPageWidget> {
                       child: FFButtonWidget(
                         onPressed: () async {
 
+                          FocusScope.of(context).unfocus();
+                          String nombre = textControllerNombre.text;
+                          String carnet = textControllerCarnet.text;
 
-                          //Falta verificar usuario
-                          String user = textController1.text;
-                          String pass = textController2.text;
-                          bool iniciarSesion = await ServiceApi.verifyUserAccount(user, pass);
+                          String contra = textControllerContra.text;
 
-                          if( iniciarSesion == true ) {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => HomePage(),
-                            ),
-                          );
+                          String edadStr = textControllerEdad.text;
+                          int edad = int.parse(edadStr);
+                          Map resp = await ServiceApi.postCreateUser(
+                              nombre, contra, edad, carnet);
+
+                          if (resp['nombre'] != null) {
+                            openDialog(nombre);
+
+                            Navigator.pop(context);
                           }
                         },
-                        text: 'Login',
+                        text: 'Crear',
                         options: FFButtonOptions(
                           width: double.infinity,
                           height: MediaQuery.of(context).size.height * 0.05,
@@ -274,6 +395,7 @@ class _HomePageWidgetState extends State<InicioPageWidget> {
                   ),
                 ),
               ),
+
               Align(
                 alignment: const AlignmentDirectional(0, 0),
                 child: Padding(
@@ -289,16 +411,10 @@ class _HomePageWidgetState extends State<InicioPageWidget> {
                       child: FFButtonWidget(
                         onPressed: () {
                           FocusScope.of(context).unfocus();
-
                           print("Boton de crear cuenta");
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => CrearUsuarioPagina(),
-                            ),
-                          );
+                          Navigator.pop(context);
                         },
-                        text: 'Sign up',
+                        text: '<- Volver',
                         options: FFButtonOptions(
                           width: double.infinity,
                           height: MediaQuery.of(context).size.height * 0.05,
@@ -329,61 +445,37 @@ class _HomePageWidgetState extends State<InicioPageWidget> {
                 ),
               ),
               // Generated code for this Stack Widget...
-              Align(
-                alignment: const AlignmentDirectional(0, 0),
-                child: SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.8,
-                  height: MediaQuery.of(context).size.height * 0.065,
-                  child: Stack(
-                    children: [
-                      Align(
-                        alignment: const AlignmentDirectional(0, 0),
-                        child: FFButtonWidget(
-                          onPressed: () {
-                            print('Button pressed ...');
-                          },
-                          text: 'Sign in with Google',
-                          options: FFButtonOptions(
-                            width: double.infinity,
-                            height: 44,
-                            color: Colors.black,
-                            textStyle: GoogleFonts.getFont(
-                              'Roboto',
-                              color: const Color(0xFF606060),
-                              fontSize: 23,
-                            ),
-                            elevation: 4,
-                            borderSide: const BorderSide(
-                              color: Colors.transparent,
-                              width: 0,
-                            ),
-                            borderRadius: 12,
-                          ),
-                        ),
-                      ),
-                      Align(
-                        alignment: const AlignmentDirectional(-0.83, 0),
-                        child: Container(
-                          width: 22,
-                          height: 22,
-                          clipBehavior: Clip.antiAlias,
-                          decoration: const BoxDecoration(
-                            shape: BoxShape.circle,
-                          ),
-                          child: Image.network(
-                            'https://i0.wp.com/nanophorm.com/wp-content/uploads/2018/04/google-logo-icon-PNG-Transparent-Background.png?w=1000&ssl=1',
-                            fit: BoxFit.contain,
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              )
             ],
           ),
         ),
       ),
     );
   }
+
+  Future openDialog(String name) => showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text(
+            "Cuenta creada",
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          content: Text(
+            "Bienvenido:  $name",
+            style: TextStyle(
+              fontSize: 18,
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                _dismissDialog();
+              },
+              child: const Text("Salir"),
+            ),
+          ],
+        ),
+      );
 }

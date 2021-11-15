@@ -6,7 +6,7 @@ class Add_event extends StatelessWidget {
       
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: Text("Añadir Evento"),
+        title: Text("Asistir a Evento"),
         shadowColor: Colors.white,
         backgroundColor: Color(0xFF612ED5),
       ),

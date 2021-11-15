@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-class Add_event extends StatelessWidget {
+class Edit_event extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -265,12 +265,86 @@ class Add_event extends StatelessWidget {
             ElevatedButton(
                 child: Text('Uber'),
                 onPressed: () {
-               
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Tablas()),
+                );
               },
             ),
           ],
         )
       ),
+      ),
+    );
+  }
+}
+
+class Tablas extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Gasto"),
+        shadowColor: Colors.orange
+      ),
+      body: Center(
+        child: DataTable(columns: [
+            DataColumn(label: Text('Gastos')),
+            DataColumn(label: Text('Monto'),)
+          ], 
+          rows: [
+            DataRow(cells: [
+              DataCell(Text("Comida")),
+              DataCell(Text('30')),
+            ]),
+            DataRow(cells: [
+              DataCell(Text('Uber')),
+              DataCell(Text('50')),
+            ]),
+            DataRow(cells: [
+              DataCell(Text('Trago')),
+              DataCell(Text('100')),
+            ]),
+            DataRow(cells: [
+              DataCell(Text('Total')),
+              DataCell(Text('180')),
+            ]),
+          ]),
+      ),
+    );
+  }
+}
+class IngTablas extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Gasto"),
+        shadowColor: Colors.pink
+      ),
+      body: Center(
+        child: DataTable(columns: [
+            DataColumn(label: Text('Ingreso')),
+            DataColumn(label: Text('Monto'),)
+          ], 
+          rows: [
+            DataRow(cells: [
+              DataCell(Text("Mesada")),
+              DataCell(Text('100')),
+            ]),
+            DataRow(cells: [
+              DataCell(Text('Sueldo')),
+              DataCell(Text('2500')),
+            ]),
+            DataRow(cells: [
+              DataCell(Text('Plata que encontré en la calle')),
+              DataCell(Text('90')),
+            ]),
+            DataRow(cells: [
+              DataCell(Text('Total')),
+              DataCell(Text('2690')),
+            ]),
+          ]),
       ),
     );
   }
